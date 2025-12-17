@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
 
 class PremiumTextField extends StatelessWidget {
-  final String labelText;
-  final String hintText;
+  final String? labelText;
+  final String? hintText;
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool isPassword;
@@ -11,8 +11,8 @@ class PremiumTextField extends StatelessWidget {
 
   const PremiumTextField({
     super.key,
-    required this.labelText,
-    required this.hintText,
+     this.labelText,
+     this.hintText,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.isPassword = false,

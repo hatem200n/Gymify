@@ -46,6 +46,7 @@ class OnboardingScreen extends ConsumerWidget {
                     onPressed: () {
                       showModalBottomSheet(
                         isScrollControlled: true,
+                        barrierColor: Colors.transparent,
                         constraints: BoxConstraints(maxHeight: 700.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.vertical(
@@ -61,6 +62,7 @@ class OnboardingScreen extends ConsumerWidget {
                     onPressed: () {
                       showModalBottomSheet(
                         isScrollControlled: true,
+                        barrierColor: Colors.transparent,
                         constraints: BoxConstraints(maxHeight: 500.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.vertical(

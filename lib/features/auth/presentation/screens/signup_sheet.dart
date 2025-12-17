@@ -5,11 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:gymfiy/core/common/widgets/premium_button.dart';
 import 'package:gymfiy/core/common/widgets/premium_text_field.dart';
 import 'package:gymfiy/core/router/go_router_provider.dart';
-import 'package:gymfiy/core/theme/app_colors.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_notifier.dart';
 import 'package:gymfiy/features/auth/presentation/screens/login_sheet.dart';
 import 'package:gymfiy/features/auth/presentation/widgets/signup_logo_text.dart';
+import 'package:gymfiy/features/auth/presentation/widgets/social_action_icon.dart';
 
 class SignupSheet extends ConsumerStatefulWidget {
   const SignupSheet({super.key});
@@ -27,171 +27,164 @@ class _SignupSheetState extends ConsumerState<SignupSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = ref.read(authNotifierProvider);
-    final providerNotifire = ref.read(authNotifierProvider.notifier);
-    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    final authState = ref.watch(authNotifierProvider);
+    final isLoading = authState is AsyncLoading;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(24, 24, 24, 24 + bottomPadding),
+      padding: EdgeInsets.fromLTRB(
+          24, 24, 24, 24 + MediaQuery.of(context).viewInsets.bottom),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Center(
-                  child: Hero(tag: 'logo text', child: SignupLogoText())),
+              const Hero(tag: 'logo text', child: SignupLogoText()),
               "Let's get started!".makeTitleText(context),
-              // 8.verticalSpace,
-              // 'Create your new account in seconds'
-              //     .makeBodyText(context, isSecondary: true),
               25.verticalSpace,
-              PremiumTextField(
-                controller: _nameController,
-                labelText: "user name",
-                hintText: "user name",
-                keyboardType: TextInputType.text,
-              ),
-              20.verticalSpace,
-              PremiumTextField(
-                controller: _emailController,
-                labelText: "Email",
-                hintText: "example@gmail.com",
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty || !value.contains('@')) {
-                    return "invald email";
-                  }
-                  return null;
-                },
-              ),
-              20.verticalSpace,
-              PremiumTextField(
-                controller: _passwordController,
-                labelText: "password",
-                hintText: '**********',
-                isPassword: true,
-                validator: (value) {
-                  if (value == null || value.length < 8) {
-                    return "password must be more than 8 latters and numbers";
-                  }
-                  return null;
-                },
-              ),
-              20.verticalSpace,
-              PremiumTextField(
-                controller: _confirmPassword,
-                labelText: 'confirm password',
-                hintText: '**********',
-                isPassword: true,
-                validator: (value) {
-                  if (value != _passwordController.text) {
-                    return 'password not march';
-                  }
-                  return null;
-                },
-              ),
+              _buildFormFields(),
               24.verticalSpace,
-              PremiumButton(
-                text: 'create account',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    providerNotifire.signUp(
-                        _emailController.text, _passwordController.text);
-                  }
-                },
-              ),
-              20.verticalSpace,
-              Row(
-                children: [
-                  const Expanded(child: Divider()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: 'أو'.makeLabelText(context),
-                  ),
-                  const Expanded(child: Divider()),
-                ],
-              ),
-              20.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          context.pop();
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            constraints: BoxConstraints(maxHeight: 500.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.vertical(
-                                  top: Radius.circular(20.r)),
-                            ),
-                            context: context,
-                            builder: (context) => const LoginSheet(),
-                          );
-                        },
-                        child: Container(
-                          height: 40.h,
-                          padding: EdgeInsets.all(3.r),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadiusGeometry.circular(200.r),
-                              border:
-                                  Border.all(color: AppColors.secondaryText)),
-                          child: Image.asset("assets/icons/have-account.webp"),
-                        ),
-                      ),
-                      "have an account".makeBodyText(context)
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      await providerNotifire.signInWithGoogle();
-                      // await providerNotifire.signOut();
-
-                      // 💡 لو العملية تمت بنجاح (مفيش Error)
-                      if (!provider.hasError) {
-                        if (context.mounted) {
-                          context.pop();
-                          context.go(AppRoutes.home);
-                        }
-                      } else {
-                        // لو صار خطأ، اعرضه
-                        final error = provider.error;
-                        print(error);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('❌ فشل التسجيل: $error')),
-                        );
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 40.h,
-                          padding: EdgeInsets.all(3.r),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadiusGeometry.circular(200.r),
-                              border:
-                                  Border.all(color: AppColors.secondaryText)),
-                          child: Image.asset("assets/icons/google-icon.jpg"),
-                        ),
-                        provider.isLoading
-                            ? const Center(child: CircularProgressIndicator())
-                            : "google".makeBodyText(context)
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              if (isLoading)
+                const CircularProgressIndicator()
+              else
+                PremiumButton(
+                  text: 'Create Account',
+                  onPressed: () => _handleSignup(ref),
+                ),
+              _buildDivider(context),
+              _buildSocialSection(context, ref, isLoading),
               10.verticalSpace
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // --- (UI Components) ---
+
+  Widget _buildFormFields() {
+    return Column(
+      children: [
+        PremiumTextField(
+          controller: _nameController,
+          labelText: "User Name",
+          hintText: "Enter your name",
+        ),
+        20.verticalSpace,
+        PremiumTextField(
+          controller: _emailController,
+          labelText: "Email",
+          hintText: "example@gmail.com",
+          keyboardType: TextInputType.emailAddress,
+          validator: (v) =>
+              (v == null || !v.contains('@')) ? "Invalid email" : null,
+        ),
+        20.verticalSpace,
+        PremiumTextField(
+          controller: _passwordController,
+          labelText: "Password",
+          isPassword: true,
+          validator: (v) =>
+              (v == null || v.length < 8) ? "Min 8 characters" : null,
+        ),
+        20.verticalSpace,
+        PremiumTextField(
+          controller: _confirmPassword,
+          labelText: 'Confirm Password',
+          isPassword: true,
+          validator: (v) =>
+              (v != _passwordController.text) ? 'Passwords do not match' : null,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDivider(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        children: [
+          const Expanded(child: Divider()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: 'أو'.makeLabelText(context),
+          ),
+          const Expanded(child: Divider()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialSection(
+      BuildContext context, WidgetRef ref, bool isLoading) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SocialActionIcon(
+          icon: "assets/icons/have-account.webp",
+          label: "Have account",
+          onTap: () => _switchToLogin(context),
+        ),
+        SocialActionIcon(
+          icon: "assets/icons/google-icon.jpg",
+          label: "Google",
+          onTap: () => _handleGoogleSignIn(ref),
+        ),
+      ],
+    );
+  }
+
+  // --- Logic ---
+
+  Future<void> _handleSignup(WidgetRef ref) async {
+    if (_formKey.currentState!.validate()) {
+      await ref.read(authNotifierProvider.notifier).signUp(
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+          );
+      _checkStatus(ref);
+    }
+  }
+
+  Future<void> _handleGoogleSignIn(WidgetRef ref) async {
+    await ref.read(authNotifierProvider.notifier).signInWithGoogle();
+    _checkStatus(ref);
+  }
+
+  void _checkStatus(WidgetRef ref) {
+    final state = ref.read(authNotifierProvider);
+    if (!state.hasError) {
+      if (mounted) context.go(AppRoutes.home);
+    } else {
+      _showError(state.error.toString());
+    }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: message.makeBodyText(context),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height - 160,
+          left: 20,
+          right: 20,
+        ),
+      ),
+    );
+  }
+
+  void _switchToLogin(BuildContext context) {
+    context.pop();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      constraints: BoxConstraints(maxHeight: 500.h),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
+      context: context,
+      builder: (context) => const LoginSheet(),
     );
   }
 }

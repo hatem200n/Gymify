@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymfiy/core/local/storage_provider.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_provider.dart';
-import 'package:gymfiy/features/auth/presentation/screens/login_sheet.dart';
 import 'package:gymfiy/features/home/presentation/screens/home_screen.dart';
 import 'package:gymfiy/features/onboarding/presentation/screens/onboarding_screen.dart';
 
@@ -42,14 +40,12 @@ class RouterNotifier extends ChangeNotifier {
     }
 
     // الحالة ب: المستخدم مسجل دخول (user != null)
-    if (user != null) {
-      // لو هو في الـ onboarding (صفحة البداية)، ارفعه للهوم طول
-      if (isOnboarding) return AppRoutes.home;
+    // لو هو في الـ onboarding (صفحة البداية)، ارفعه للهوم طول
+    if (isOnboarding) return AppRoutes.home;
 
-      // لو في أي مكان ثاني، خليه براحته
-      return null;
-    }
-
+    // لو في أي مكان ثاني، خليه براحته
+    return null;
+  
     return null;
   }
 }

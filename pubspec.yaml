@@ -19,8 +19,8 @@ dependencies:
   dio: ^5.4.0
 
   # [cite_start]--- Firebase Services [cite: 31] ---
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  firebase_core: ^4.3.0
+  firebase_auth: ^6.1.3
   google_sign_in: ^6.1.6
 
   # [cite_start]--- Local Storage (Caching & Favorites) [cite: 34] ---

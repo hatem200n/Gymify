@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
 
@@ -9,6 +10,7 @@ extension StringWidgetExtension on String {
     TextAlign? textAlign,
     int? maxLines,
     bool bold = true,
+    int? fontSize,
   }) {
     final theme = Theme.of(context).textTheme;
     return Text(
@@ -18,6 +20,8 @@ extension StringWidgetExtension on String {
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
       style: theme.titleLarge?.copyWith(
         letterSpacing: 0.5,
+        fontSize: (fontSize ?? 18).sp,
+        
         color: color ?? AppColors.primaryText,
         fontWeight: bold ? FontWeight.bold : FontWeight.w500,
         fontFamily: GoogleFonts.oswald().fontFamily,
@@ -31,6 +35,7 @@ extension StringWidgetExtension on String {
     TextAlign? textAlign,
     int? maxLines,
     bool isSecondary = false,
+    int? fontSize,
   }) {
     final theme = Theme.of(context).textTheme;
     return Text(
@@ -39,6 +44,7 @@ extension StringWidgetExtension on String {
       maxLines: maxLines,
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
       style: theme.bodyMedium?.copyWith(
+        fontSize: (fontSize ?? 14).sp,
         color: color ??
             (isSecondary ? AppColors.secondaryText : AppColors.primaryText),
         fontFamily: GoogleFonts.oswald().fontFamily,
@@ -51,6 +57,7 @@ extension StringWidgetExtension on String {
     Color? color,
     TextAlign? textAlign,
     int? maxLines,
+    int? fontSize,
   }) {
     final theme = Theme.of(context).textTheme;
     return Text(
@@ -61,7 +68,7 @@ extension StringWidgetExtension on String {
       style: theme.labelMedium?.copyWith(
         color: color ?? AppColors.hintText,
         fontFamily: GoogleFonts.oswald().fontFamily,
-        fontSize: 12,
+        fontSize: (fontSize ?? 12).sp,
       ),
     );
   }
