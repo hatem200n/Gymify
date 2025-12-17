@@ -26,6 +26,7 @@ dependencies:
   # [cite_start]--- Local Storage (Caching & Favorites) [cite: 34] ---
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.2
 
   # --- Navigation ---
   go_router: ^13.0.0
@@ -39,6 +40,7 @@ dependencies:
   equatable: ^2.0.5
   # أيقونات SVG لو احتجنا
   flutter_svg: ^2.0.9
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -59,5 +61,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   
-  # assets:
-  #   - assets/images/
+  assets:
+    - assets/images/
+    - assets/icons/
