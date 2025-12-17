@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gymfiy/core/local/storage_provider.dart';
+import 'package:gymfiy/features/auth/presentation/providers/auth_provider.dart';
 import 'package:gymfiy/features/auth/presentation/screens/login_sheet.dart';
 import 'package:gymfiy/features/home/presentation/screens/home_screen.dart';
 import 'package:gymfiy/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -17,40 +18,39 @@ class AppRoutes {
 class RouterNotifier extends ChangeNotifier {
   final Ref _ref;
 
-  bool _hasViewedOnboarding = false;
-  bool _isLoading = true;
-
   RouterNotifier(this._ref) {
-    // 💡 نستخدم ref.listen باش نتابعوا حالة الـ Caching
-    _ref.listen(hasViewedOnboardingProvider, (_, next) {
-      next.when(
-        data: (hasViewed) {
-          _hasViewedOnboarding = hasViewed;
-          _isLoading = false;
-          // 💡 هذا هو مفتاح التحديث: نقولو لـ GoRouter راهو صار تغيير!
-          notifyListeners();
-        },
-        loading: () {
-          _isLoading = true;
-          notifyListeners();
-        },
-        error: (err, stack) {
-          _isLoading = false;
-          notifyListeners();
-        },
-      );
-    });
+    // _ref.listen(hasViewedOnboardingProvider, (_, __) => notifyListeners());
+    _ref.listen(authStateProvider, (_, __) => notifyListeners());
   }
-  String? redirect(BuildContext context, GoRouterState state) {
-    if (_isLoading) return null;
-//TODO make != ==
-    final isOnboarding = state.matchedLocation != AppRoutes.onboarding;
 
-    if (_hasViewedOnboarding) {
-      return isOnboarding ? AppRoutes.home : null;
-    } else {
-      return isOnboarding ? null : AppRoutes.onboarding;
+  String? redirect(BuildContext context, GoRouterState state) {
+    // 1. قراءة حالة الـ Auth الحالية من فايربيز
+    final authState = _ref.read(authStateProvider);
+    final user = authState.value; // لو null معناها مش مسجل
+
+    final isOnboarding = state.matchedLocation == AppRoutes.onboarding;
+
+    // المنطق اللي تبيه أنت بالظبط:
+
+    // الحالة أ: المستخدم مش مسجل دخول (user == null)
+    if (user == null) {
+      // لو هو مش في الـ onboarding، ارفعه ليها بالسيف
+      if (!isOnboarding) return AppRoutes.onboarding;
+
+      // لو هو أصلاً في الـ onboarding، خليه مكانه
+      return null;
     }
+
+    // الحالة ب: المستخدم مسجل دخول (user != null)
+    if (user != null) {
+      // لو هو في الـ onboarding (صفحة البداية)، ارفعه للهوم طول
+      if (isOnboarding) return AppRoutes.home;
+
+      // لو في أي مكان ثاني، خليه براحته
+      return null;
+    }
+
+    return null;
   }
 }
 

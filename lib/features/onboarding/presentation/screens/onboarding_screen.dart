@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gymfiy/core/common/widgets/outline_button.dart';
 import 'package:gymfiy/core/common/widgets/premium_button.dart';
-import 'package:gymfiy/core/local/storage_provider.dart';
-import 'package:gymfiy/core/router/go_router_provider.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/screens/login_sheet.dart';
@@ -49,6 +45,8 @@ class OnboardingScreen extends ConsumerWidget {
                     text: "join now",
                     onPressed: () {
                       showModalBottomSheet(
+                        isScrollControlled: true,
+                        constraints: BoxConstraints(maxHeight: 700.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.vertical(
                               top: Radius.circular(20.r)),
@@ -62,6 +60,8 @@ class OnboardingScreen extends ConsumerWidget {
                     text: 'already have an account',
                     onPressed: () {
                       showModalBottomSheet(
+                        isScrollControlled: true,
+                        constraints: BoxConstraints(maxHeight: 500.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadiusGeometry.vertical(
                               top: Radius.circular(20.r)),

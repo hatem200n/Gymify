@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "109966485132",
+    "project_id": "gymify-a4cfc",
+    "storage_bucket": "gymify-a4cfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109966485132:android:38fa9c01c1623d69347da9",
+        "android_client_info": {
+          "package_name": "com.example.gymify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109966485132-0fekjdqilda31cbe12v0o5qqkl2tiqeo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gymify",
+            "certificate_hash": "576921f865c55b36a94d90bc609231c1b71e257f"
+          }
+        },
+        {
+          "client_id": "109966485132-ucouefs4hqmf5mnt33c4nno0l440t7ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABi2Gk8NUdHAxEIC9ABleA9WzzxSO05BY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109966485132-ucouefs4hqmf5mnt33c4nno0l440t7ag.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "109966485132-rfemfgh1n0kao4n4lmokb2kme4070gop.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gymify"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
