@@ -21,8 +21,7 @@ extension StringWidgetExtension on String {
       style: theme.titleLarge?.copyWith(
         letterSpacing: 0.5,
         fontSize: (fontSize ?? 18).sp,
-        
-        color: color ?? AppColors.primaryText,
+        color: color,
         fontWeight: bold ? FontWeight.bold : FontWeight.w500,
         fontFamily: GoogleFonts.oswald().fontFamily,
       ),
@@ -45,8 +44,7 @@ extension StringWidgetExtension on String {
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
       style: theme.bodyMedium?.copyWith(
         fontSize: (fontSize ?? 14).sp,
-        color: color ??
-            (isSecondary ? AppColors.secondaryText : AppColors.primaryText),
+        color: color,
         fontFamily: GoogleFonts.oswald().fontFamily,
       ),
     );
@@ -66,7 +64,7 @@ extension StringWidgetExtension on String {
       maxLines: maxLines,
       overflow: maxLines != null ? TextOverflow.ellipsis : null,
       style: theme.labelMedium?.copyWith(
-        color: color ?? AppColors.hintText,
+        color: color ,
         fontFamily: GoogleFonts.oswald().fontFamily,
         fontSize: (fontSize ?? 12).sp,
       ),
