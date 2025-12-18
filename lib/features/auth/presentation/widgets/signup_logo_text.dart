@@ -19,7 +19,7 @@ class SignupLogoText extends StatelessWidget {
             style: theme.titleLarge?.copyWith(
                 fontSize: 80.sp,
                 letterSpacing: 6,
-                color: Colors.black,
+                color: AppColors.lightBackground,
                 fontWeight: FontWeight.bold,
                 fontFamily: GoogleFonts.oswald().fontFamily),
           ),

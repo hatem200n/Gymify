@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
@@ -30,10 +29,9 @@ class SocialActionIcon extends StatelessWidget {
               borderRadius: BorderRadius.circular(200.r),
               border: Border.all(color: AppColors.secondaryText),
             ),
-            child: isLoading
-                ? const SizedBox(
-                    width: 30, child: CircularProgressIndicator(strokeWidth: 2))
-                : Image.asset(icon),
+            child: ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(200.r),
+              child: Image.asset(icon)),
           ),
           label.makeBodyText(context)
         ],
