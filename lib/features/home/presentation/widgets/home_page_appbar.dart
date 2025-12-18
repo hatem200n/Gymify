@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymfiy/core/common/widgets/theme_switcher.dart';
 import 'package:gymfiy/core/router/go_router_provider.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_notifier.dart';
@@ -23,6 +24,7 @@ class HomePageAppbar extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const ThemeSwitcher(),
           IconButton(onPressed: () {
                 context.push(AppRoutes.favoritesScreen);
 

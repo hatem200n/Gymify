@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,10 +33,10 @@ class AllExercisesListCard extends StatelessWidget {
             Positioned.fill(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
-                child: Image.network(
-                  item.gifUrl,
+                child: CachedNetworkImage(
+                  imageUrl: item.gifUrl,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
+                  errorWidget: (context, error, stackTrace) =>
                       const Center(child: Icon(Icons.fitness_center)),
                 ),
               ),

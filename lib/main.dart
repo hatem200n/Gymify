@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gymfiy/core/providers/theme_notifier.dart';
 import 'package:gymfiy/firebase_options.dart';
 import 'core/router/go_router_provider.dart';
 // import 'firebase_options.dart';
@@ -25,6 +26,7 @@ class Gymfiy extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // 3. استدعاء GoRouter
     final router = ref.watch(goRouterProvider);
+    final themeMode = ref.watch(themeProvider);
 
     return ScreenUtilInit(
         designSize: const Size(360, 690),
@@ -33,7 +35,7 @@ class Gymfiy extends ConsumerWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
-            themeMode: ThemeMode.system,
+            themeMode: themeMode,
             routeInformationParser: router.routeInformationParser,
             routeInformationProvider: router.routeInformationProvider,
             routerDelegate: router.routerDelegate,

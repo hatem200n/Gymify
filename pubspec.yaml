@@ -10,55 +10,32 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # [cite_start]--- State Management (Riverpod) [cite: 30] ---
-  # نستخدموا riverpod_annotation عشان الـ Code Gen (أحدث وأرتب طريقة)
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
 
-  # [cite_start]--- Networking (API) [cite: 32] ---
   dio: ^5.4.0
   pretty_dio_logger: ^1.4.0
 
-  # [cite_start]--- Firebase Services [cite: 31] ---
   firebase_core: ^4.3.0
   firebase_auth: ^6.1.3
   google_sign_in: ^6.1.6
 
-  # [cite_start]--- Local Storage (Caching & Favorites) [cite: 34] ---
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
   shared_preferences: ^2.2.2
   skeletonizer: ^2.1.2
+  flutter_switch: ^0.3.2
 
-  # --- Navigation ---
   go_router: ^13.0.0
 
-  # --- UI & Utilities ---
-  # عشان الصور من النت (التمارين) تتخزن مؤقتاً وما تستهلكش نت واجد
   cached_network_image: ^3.3.0 
-  # عشان الخطوط تكون سمحة (Bonus UI)
   google_fonts: ^6.1.0
-  # عشان مقارنة الكلاسات بسهولة في الـ Clean Arch
-  equatable: ^2.0.5
-  # أيقونات SVG لو احتجنا
-  flutter_svg: ^2.0.9
   flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # --- Code Generation (المحركات) ---
-  # ضروري عشان Riverpod و Hive يخدموا الـ Generated Code
-  build_runner: ^2.4.8
-  riverpod_generator: ^2.3.9
-  hive_generator: ^2.0.1
 
-  # --- Linting (نظافة الكود) ---
-  flutter_lints: ^3.0.1
-  # نصيحة: custom_lint مع riverpod_lint يوريك أغلاط الريفربود قبل ما تشغل
-  custom_lint: ^0.5.10
-  riverpod_lint: ^2.3.7
+
 
 flutter:
   uses-material-design: true

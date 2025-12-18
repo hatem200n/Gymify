@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gymfiy/core/model/exercise_model.dart';
@@ -60,10 +61,10 @@ class _ExerciseDetailsPageState extends ConsumerState<ExerciseDetailsPage> {
       pinned: true,
       backgroundColor: AppColors.primary,
       flexibleSpace: FlexibleSpaceBar(
-        background: Image.network(
-          widget.exercise.gifUrl,
+        background: CachedNetworkImage(
+          imageUrl: widget.exercise.gifUrl,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) =>
+          errorWidget: (_, __, ___) =>
               const Center(child: Icon(Icons.image_not_supported)),
         ),
       ),
