@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymfiy/core/common/widgets/premium_button.dart';
-import 'package:gymfiy/core/common/widgets/premium_text_field.dart';
+import 'package:gymfiy/core/common/widgets/primary_button.dart';
+import 'package:gymfiy/core/common/widgets/primary_text_field.dart';
 import 'package:gymfiy/core/router/go_router_provider.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_notifier.dart';
@@ -47,7 +47,7 @@ class _SignupSheetState extends ConsumerState<SignupSheet> {
               if (isLoading)
                 const CircularProgressIndicator()
               else
-                PremiumButton(
+                PrimaryButton(
                   text: 'Create Account',
                   onPressed: () => _handleSignup(ref),
                 ),
@@ -66,13 +66,13 @@ class _SignupSheetState extends ConsumerState<SignupSheet> {
   Widget _buildFormFields() {
     return Column(
       children: [
-        PremiumTextField(
+        PrimaryTextField(
           controller: _nameController,
           labelText: "User Name",
           hintText: "Enter your name",
         ),
         20.verticalSpace,
-        PremiumTextField(
+        PrimaryTextField(
           controller: _emailController,
           labelText: "Email",
           hintText: "example@gmail.com",
@@ -81,7 +81,7 @@ class _SignupSheetState extends ConsumerState<SignupSheet> {
               (v == null || !v.contains('@')) ? "Invalid email" : null,
         ),
         20.verticalSpace,
-        PremiumTextField(
+        PrimaryTextField(
           controller: _passwordController,
           labelText: "Password",
           isPassword: true,
@@ -89,7 +89,7 @@ class _SignupSheetState extends ConsumerState<SignupSheet> {
               (v == null || v.length < 8) ? "Min 8 characters" : null,
         ),
         20.verticalSpace,
-        PremiumTextField(
+        PrimaryTextField(
           controller: _confirmPassword,
           labelText: 'Confirm Password',
           isPassword: true,

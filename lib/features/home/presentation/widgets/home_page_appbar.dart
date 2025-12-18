@@ -23,7 +23,10 @@ class HomePageAppbar extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+          IconButton(onPressed: () {
+                context.push(AppRoutes.favoritesScreen);
+
+          }, icon: const Icon(Icons.favorite)),
           IconButton(
               onPressed: () {
                 providerNotifire.signOut();

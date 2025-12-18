@@ -1,7 +1,8 @@
-import 'package:gymfiy/core/model/exercise_model.dart';
 import 'package:gymfiy/core/model/explore_item.dart';
 
-class ExploerData {
+// this file was created because the api response don't
+// any images or duration for filters options
+class FillterOptions {
   static List<ExploreItem> bodyParts = const [
     ExploreItem(
       name: 'lower arms',
@@ -160,120 +161,6 @@ class ExploerData {
       description:
           'A stationary bike is a type of exercise bike used for cardiovascular exercises, typically involving the legs.',
       duration: '30-60 seconds',
-    ),
-  ];
-
-  static List<ExerciseModel> dummyExercises = [
-    const ExerciseModel(
-      id: 'VPPtusI',
-      name: 'Inverted Row Bent Knees',
-      gifUrl: 'https://static.exercisedb.dev/media/VPPtusI.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['body weight'],
-      secondaryMuscles: ['biceps', 'forearms'],
-      instructions: [
-        'Set up a bar at waist height and lie underneath it.',
-        'Grab the bar with an overhand grip.',
-        'Position your body straight with heels on the ground.',
-        'Pull your chest toward the bar.',
-        'Lower slowly and repeat.',
-      ],
-    ),
-    const ExerciseModel(
-      id: '8d8qJQI',
-      name: 'Barbell Reverse Grip Incline Bench Row',
-      gifUrl: 'https://static.exercisedb.dev/media/8d8qJQI.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['barbell'],
-      secondaryMuscles: ['biceps', 'forearms'],
-      instructions: [
-        'Set incline bench at 45 degrees.',
-        'Sit facing the backrest.',
-        'Grab barbell with reverse grip.',
-        'Pull bar toward upper abdomen.',
-        'Lower slowly and repeat.',
-      ],
-    ),
-    const ExerciseModel(
-      id: 'JGKowMS',
-      name: 'Smith Narrow Row',
-      gifUrl: 'https://static.exercisedb.dev/media/JGKowMS.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['smith machine'],
-      secondaryMuscles: ['biceps', 'rear deltoids'],
-      instructions: [
-        'Adjust seat height.',
-        'Grip handles narrowly.',
-        'Pull handles toward body.',
-        'Squeeze shoulder blades.',
-        'Return slowly.',
-      ],
-    ),
-    const ExerciseModel(
-      id: 'dmgMp3n',
-      name: 'Barbell Incline Row',
-      gifUrl: 'https://static.exercisedb.dev/media/dmgMp3n.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['barbell'],
-      secondaryMuscles: ['biceps', 'forearms'],
-      instructions: [
-        'Lie face down on incline bench.',
-        'Grip barbell overhand.',
-        'Pull bar to chest.',
-        'Lower slowly.',
-        'Repeat.',
-      ],
-    ),
-    const ExerciseModel(
-      id: 'ZqNOWQ6',
-      name: 'Lever Reverse Grip Vertical Row',
-      gifUrl: 'https://static.exercisedb.dev/media/ZqNOWQ6.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['leverage machine'],
-      secondaryMuscles: ['biceps', 'forearms'],
-      instructions: [
-        'Adjust seat and footplate.',
-        'Grip handles underhand.',
-        'Pull handles to chest.',
-        'Release slowly.',
-        'Repeat.',
-      ],
-    ),
-    const ExerciseModel(
-      id: 'w2oRpuH',
-      name: 'Lever Alternating Narrow Grip Seated Row',
-      gifUrl: 'https://static.exercisedb.dev/media/w2oRpuH.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['leverage machine'],
-      secondaryMuscles: ['biceps', 'forearms'],
-      instructions: [
-        'Sit with straight back.',
-        'Pull one handle at a time.',
-        'Squeeze shoulder blades.',
-        'Alternate sides.',
-      ],
-    ),
-    const ExerciseModel(
-      id: 'zYmNaoY',
-      name: 'Elevator',
-      gifUrl: 'https://static.exercisedb.dev/media/zYmNaoY.gif',
-      targetMuscles: ['upper back'],
-      bodyParts: ['back'],
-      equipments: ['body weight'],
-      secondaryMuscles: ['shoulders', 'trapezius'],
-      instructions: [
-        'Stand with feet shoulder-width apart.',
-        'Bend forward at waist.',
-        'Lower upper body.',
-        'Raise back up.',
-        'Repeat.',
-      ],
     ),
   ];
 }

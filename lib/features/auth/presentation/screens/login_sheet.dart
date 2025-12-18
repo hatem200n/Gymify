@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymfiy/core/common/widgets/premium_button.dart';
-import 'package:gymfiy/core/common/widgets/premium_text_field.dart';
+import 'package:gymfiy/core/common/widgets/primary_button.dart';
+import 'package:gymfiy/core/common/widgets/primary_text_field.dart';
 import 'package:gymfiy/core/router/go_router_provider.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_notifier.dart';
@@ -45,7 +45,7 @@ class _LoginSheetState extends ConsumerState<LoginSheet> {
               if (isLoading)
                 const CircularProgressIndicator()
               else
-                PremiumButton(
+                PrimaryButton(
                   isLoading: isLoading,
                   text: 'Login',
                   onPressed: () => _handleLogin(ref),
@@ -65,7 +65,7 @@ class _LoginSheetState extends ConsumerState<LoginSheet> {
   Widget _buildTextFields() {
     return Column(
       children: [
-        PremiumTextField(
+        PrimaryTextField(
           controller: _emailController,
           labelText: "Email",
           hintText: "example@gmail.com",
@@ -74,7 +74,7 @@ class _LoginSheetState extends ConsumerState<LoginSheet> {
               (v == null || !v.contains('@')) ? "Invalid email" : null,
         ),
         20.verticalSpace,
-        PremiumTextField(
+        PrimaryTextField(
           controller: _passwordController,
           labelText: "Password",
           isPassword: true,

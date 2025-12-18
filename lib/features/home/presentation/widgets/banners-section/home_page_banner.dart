@@ -4,8 +4,10 @@ import 'package:gymfiy/core/theme/app_colors.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 
 class HomePageBanner extends StatelessWidget {
+  final String image;
   const HomePageBanner({
     super.key,
+    required this.image,
   });
 
   @override
@@ -23,7 +25,7 @@ class HomePageBanner extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadiusGeometry.circular(20.r),
               child: Image.asset(
-                "assets/images/banner-image2.png",
+                image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -69,7 +71,7 @@ class HomePageBanner extends StatelessWidget {
                             color: AppColors.primary,
                           ),
                           child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
+                            Icons.arrow_drop_down_circle_outlined,
                             color: AppColors.lightBackground,
                           ),
                         )
@@ -85,4 +87,3 @@ class HomePageBanner extends StatelessWidget {
     );
   }
 }
-

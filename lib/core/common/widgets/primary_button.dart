@@ -3,14 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 
-class PremiumButton extends StatelessWidget {
+class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
   final double? width;
   final bool isDisabled;
+  
 
-  const PremiumButton({
+  const PrimaryButton({
     super.key,
     required this.text,
     required this.onPressed,

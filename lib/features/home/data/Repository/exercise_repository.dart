@@ -6,16 +6,32 @@ class ExerciseRepository {
   final ExerciseService _service;
   ExerciseRepository(this._service);
 
-// في ملف exercise_repository.dart
-  Future<List<ExerciseModel>> getAllExercises(
-      {int offset = 0,
-      int limit = 10,
-      String? fillterType,
-      String? fillterValue}) async {
-    final response =
-        await _service.fetchAllExercises(offset: offset, limit: limit);
+  Future<List<ExerciseModel>> getAllExercises({
+    int offset = 0,
+    int limit = 10,
+    String? fillterType,
+    String? fillterValue,
+    String? search,
+    List<String>? muscles,
+    List<String>? equipments,
+    List<String>? bodyParts,
+    String? sortBy,
+    String? sortOrder,
+  }) async {
+    final response = await _service.fetchAllExercises(
+      offset: offset,
+      limit: limit,
+      fillterType: fillterType,
+      fillterValue: fillterValue,
+    );
     final List rawData = response['data'];
     return rawData.map((e) => ExerciseModel.fromJson(e)).toList();
+  }
+
+  Future<ExerciseModel> fetchExerciseById(String id) async {
+    final response = await _service.fetchExercisesById(id);
+    final rawData = response['data'];
+    return ExerciseModel.fromJson(rawData);
   }
 }
 

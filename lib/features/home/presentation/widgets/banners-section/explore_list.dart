@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gymfiy/core/model/explore_item.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
-import 'package:gymfiy/features/home/presentation/widgets/exploer_list_card.dart';
+import 'package:gymfiy/features/home/presentation/widgets/banners-section/exploer_list_card.dart';
 
 class ExploreList extends StatelessWidget {
   final String title;

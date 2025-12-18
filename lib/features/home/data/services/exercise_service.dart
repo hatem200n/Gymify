@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymfiy/core/api/dio_provider.dart';
+import 'package:gymfiy/core/api/end_points.dart';
 
 class ExerciseService {
   final Dio _dio;
@@ -13,7 +14,7 @@ class ExerciseService {
       String? fillterValue}) async {
     final response = await _dio.get(
       fillterType != null
-          ? '$fillterType/$fillterValue/exercises'
+          ? '$fillterType/$fillterValue/${EndPoints.exercises}'
           : 'exercises',
       queryParameters: {
         'offset': offset,
@@ -22,10 +23,14 @@ class ExerciseService {
     );
     return response.data;
   }
+
+  Future<Map<String, dynamic>> fetchExercisesById(String id) async {
+    final response = await _dio.get('exercises/$id');
+    return response.data;
+  }
 }
 
-// Provider للخدمة
 final exerciseServiceProvider = Provider((ref) {
-  final dio = ref.watch(dioProvider); // 💡 استخدمنا الـ dio بتاعك هنا
+  final dio = ref.watch(dioProvider);
   return ExerciseService(dio);
 });

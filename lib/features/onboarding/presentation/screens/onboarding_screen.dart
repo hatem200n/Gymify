@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gymfiy/core/common/widgets/outline_button.dart';
-import 'package:gymfiy/core/common/widgets/premium_button.dart';
+import 'package:gymfiy/core/common/widgets/primary_button.dart';
 import 'package:gymfiy/core/theme/app_colors.dart';
 import 'package:gymfiy/core/utils/extentions/string_extention.dart';
 import 'package:gymfiy/features/auth/presentation/screens/login_sheet.dart';
@@ -41,7 +41,7 @@ class OnboardingScreen extends ConsumerWidget {
                 "FIRST STEP TO HEALTHY BODY"
                     .makeTitleText(context, color: AppColors.lightBackground),
                 100.verticalSpace,
-                PremiumButton(
+                PrimaryButton(
                     text: "join now",
                     onPressed: () {
                       showModalBottomSheet(
@@ -71,8 +71,6 @@ class OnboardingScreen extends ConsumerWidget {
                         context: context,
                         builder: (context) => const LoginSheet(),
                       );
-                      // setOnboardingViewed(ref);
-                      // context.go(AppRoutes.home);
                     }),
                 80.verticalSpace
               ],

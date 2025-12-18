@@ -7,7 +7,7 @@ class AppInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (kDebugMode) {
-      print('🚀 REQUEST[${options.method}] => PATH: ${options.path}');
+      print('REQUEST[${options.method}] => PATH: ${options.path}');
     }
     // if we have token we should submit it here
     // options.headers['Authorization'] = 'Bearer $token';
@@ -17,7 +17,7 @@ class AppInterceptor extends Interceptor {
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     if (kDebugMode) {
-      print('✅ RESPONSE[${response.statusCode}] => DATA: ${response.data}');
+      print('RESPONSE[${response.statusCode}] => DATA: ${response.data}');
     }
     super.onResponse(response, handler);
   }
@@ -26,7 +26,7 @@ class AppInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) {
       print(
-        '❌ ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
       );
     }
     super.onError(err, handler);

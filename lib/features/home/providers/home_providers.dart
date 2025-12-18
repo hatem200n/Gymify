@@ -2,40 +2,73 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymfiy/core/model/exercise_model.dart';
 import 'package:gymfiy/features/home/data/Repository/exercise_repository.dart';
 
-class ExercisesNotifier extends AsyncNotifier<List<ExerciseModel>> {
+typedef FilterArgs = ({String? type, String? value});
+
+class FilteredExercisesNotifier
+    extends FamilyAsyncNotifier<List<ExerciseModel>, FilterArgs?> {
   int _offset = 0;
   final int _limit = 10;
-  bool _hasMore = true;
+  bool hasMore = true;
 
   @override
-  Future<List<ExerciseModel>> build() async {
-    return _fetchInitial();
+  Future<List<ExerciseModel>> build(FilterArgs? arg) async {
+    return _fetchInitial(arg);
   }
 
-  Future<List<ExerciseModel>> _fetchInitial() async {
-    _offset = 0; // ريست للأوفست
+  Future<List<ExerciseModel>> _fetchInitial(FilterArgs? arg) async {
+    _offset = 0;
+    hasMore = true;
     final repo = ref.read(exerciseRepositoryProvider);
-    return await repo.getAllExercises(offset: _offset, limit: _limit);
+    return await repo.getAllExercises(
+      offset: _offset,
+      limit: _limit,
+      fillterType: arg?.type,
+      fillterValue: arg?.value,
+    );
+  }
+
+  Future<void> refresh() async {
+    final currentArgs = arg;
+
+    state = const AsyncLoading();
+
+    try {
+      _offset = 0;
+      hasMore = true;
+
+      final repo = ref.read(exerciseRepositoryProvider);
+      final data = await repo.getAllExercises(
+        offset: _offset,
+        limit: _limit,
+        fillterType: currentArgs?.type,
+        fillterValue: currentArgs?.value,
+      );
+
+      state = AsyncData(data);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
   }
 
   Future<void> fetchMore() async {
-    // لو قاعد يحمل أو مفيش داتا زيادة، ما تدير شي
-    if (state.isLoading || !_hasMore) return;
+    if (state.isLoading || !hasMore) return;
 
-    final oldData = state.value ?? [];
-
-    // نخلوا الحالة السابقة موجودة بس نزيدوا عليها علامة التحميل (اختياري)
-    // state = AsyncLoading<List<ExerciseModel>>().copyWithPrevious(state);
+    final currentArgs = arg;
 
     try {
       _offset += _limit;
       final repo = ref.read(exerciseRepositoryProvider);
-      final newData =
-          await repo.getAllExercises(offset: _offset, limit: _limit);
+      final newData = await repo.getAllExercises(
+        offset: _offset,
+        limit: _limit,
+        fillterType: currentArgs?.type,
+        fillterValue: currentArgs?.value,
+      );
 
       if (newData.isEmpty) {
-        _hasMore = false;
+        hasMore = false;
       } else {
+        final oldData = state.value ?? [];
         state = AsyncData([...oldData, ...newData]);
       }
     } catch (e, st) {
@@ -44,7 +77,8 @@ class ExercisesNotifier extends AsyncNotifier<List<ExerciseModel>> {
   }
 }
 
-final exercisesNotifierProvider =
-    AsyncNotifierProvider<ExercisesNotifier, List<ExerciseModel>>(() {
-  return ExercisesNotifier();
-});
+final exercisesNotifierProvider = AsyncNotifierProviderFamily<
+    FilteredExercisesNotifier, List<ExerciseModel>, FilterArgs?>(
+  () => FilteredExercisesNotifier(),
+);
+final filteredExercisesProvider = exercisesNotifierProvider;

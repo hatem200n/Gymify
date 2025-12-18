@@ -1,51 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymfiy/core/model/exercise_model.dart';
 import 'package:gymfiy/features/auth/presentation/providers/auth_provider.dart';
+import 'package:gymfiy/features/favorites/presentation/screens/favorites_screen.dart';
+import 'package:gymfiy/features/home/presentation/screens/exercise_details_page.dart';
 import 'package:gymfiy/features/home/presentation/screens/home_screen.dart';
+import 'package:gymfiy/features/search/presentation/screens/search_page.dart';
 import 'package:gymfiy/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:gymfiy/features/search/presentation/screens/search_results_page.dart';
+import 'package:gymfiy/features/search/provider/serach_provider.dart';
 
-// 1. تعريف الـ Paths (عشان ما نغلطوش في كتابة الروابط)
 class AppRoutes {
   static const String onboarding = '/onboarding';
-  static const String home = '/home'; // حنغيروها بعدين
-  static const String login = '/login';
+  static const String home = '/home';
+  static const String exerciseDetailsPage = '/exerciseDetailsPage';
+  static const String favoritesScreen = '/favoritesScreen';
+  static const String searchPage = '/SearchPage';
+  static const String searchResultsPage = '/searchResultsPage';
 }
 
-// 2. الـ Notifier اللي حيقرر وين يمشي المستخدم
 class RouterNotifier extends ChangeNotifier {
   final Ref _ref;
 
   RouterNotifier(this._ref) {
-    // _ref.listen(hasViewedOnboardingProvider, (_, __) => notifyListeners());
     _ref.listen(authStateProvider, (_, __) => notifyListeners());
   }
 
   String? redirect(BuildContext context, GoRouterState state) {
-    // 1. قراءة حالة الـ Auth الحالية من فايربيز
     final authState = _ref.read(authStateProvider);
-    final user = authState.value; // لو null معناها مش مسجل
-
+    final user = authState.value;
     final isOnboarding = state.matchedLocation == AppRoutes.onboarding;
-
-    // المنطق اللي تبيه أنت بالظبط:
-
-    // الحالة أ: المستخدم مش مسجل دخول (user == null)
     if (user == null) {
-      // لو هو مش في الـ onboarding، ارفعه ليها بالسيف
       if (!isOnboarding) return AppRoutes.onboarding;
-
-      // لو هو أصلاً في الـ onboarding، خليه مكانه
       return null;
     }
-
-    // الحالة ب: المستخدم مسجل دخول (user != null)
-    // لو هو في الـ onboarding (صفحة البداية)، ارفعه للهوم طول
     if (isOnboarding) return AppRoutes.home;
-
-    // لو في أي مكان ثاني، خليه براحته
-    return null;
-  
     return null;
   }
 }
@@ -55,12 +45,10 @@ final routerNotifierProvider = Provider<RouterNotifier>((ref) {
 });
 
 final goRouterProvider = Provider<GoRouter>((ref) {
-  // 💡 نستخدم read عشان ما نديروش rebuild لكل GoRouter
   final notifier = ref.read(routerNotifierProvider);
 
   return GoRouter(
     initialLocation: AppRoutes.onboarding,
-    // هذا يحتاج كلاس يورث من Listenable (وهذا هو RouterNotifier)
     refreshListenable: notifier,
     redirect: notifier.redirect,
     routes: [
@@ -72,10 +60,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.home,
         builder: (context, state) => const HomeScreen(),
       ),
-      // GoRoute(
-      //   path: AppRoutes.login,
-      //   builder: (context, state) => const Login(),
-      // )
+      GoRoute(
+        path: AppRoutes.favoritesScreen,
+        builder: (context, state) => const FavoritesScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.searchPage,
+        builder: (context, state) => const SearchPage(),
+      ),
+      GoRoute(
+          path: AppRoutes.exerciseDetailsPage,
+          builder: (context, state) {
+            final exercise = state.extra as ExerciseModel;
+
+            return ExerciseDetailsPage(
+              exercise: exercise,
+            );
+          }),
+      GoRoute(
+          path: AppRoutes.searchResultsPage,
+          builder: (context, state) {
+            final filterArgs = state.extra as FilterArgs;
+            return SearchResultsPage(
+              filterArgs: filterArgs,
+            );
+          })
     ],
   );
 });
